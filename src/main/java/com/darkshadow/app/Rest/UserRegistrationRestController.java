@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.darkshadow.app.dto.UsersDTO;
 import com.darkshadow.app.exception.CustomErrorType;
 import com.darkshadow.app.repo.UserJpaRepository;
+import com.darkshadow.app.service.UserRegistrationService;
 
 @RestController
 @RequestMapping("/api/user")
@@ -39,6 +40,8 @@ public class UserRegistrationRestController {
 	@Autowired
 	private UserJpaRepository userJpaRepository;
 
+	@Autowired
+	private UserRegistrationService userService;
 	/*
 	 * @Autowired public void setUserJpaRepository(UserJpaRepository
 	 * userJpaRepository) { this.userJpaRepository = userJpaRepository; }
@@ -65,6 +68,7 @@ public class UserRegistrationRestController {
 			return new ResponseEntity<UsersDTO>(new CustomErrorType("User already exist"),HttpStatus.CONFLICT);
 		}
 		userJpaRepository.save(user);
+		userService.sendMail(user.getEmail(),user.getName());
 		return new ResponseEntity<UsersDTO>(user, HttpStatus.CREATED);
 	}
 	

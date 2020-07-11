@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ListuserComponent } from './listuser/listuser.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
-import { RegistrationServiceService } from './service/registration-service.service';
 import { UserServiceService } from './service/user-service.service';
 import { UserUpdationComponent } from './listuser/user-updation/user-updation.component';
 
@@ -28,7 +27,7 @@ import { UserUpdationComponent } from './listuser/user-updation/user-updation.co
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [RegistrationServiceService, UserServiceService],
+  providers: [ UserServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

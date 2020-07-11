@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegistrationServiceService } from 'src/app/service/registration-service.service';
 import { User } from 'src/app/model/user.model';
 import { UserServiceService } from 'src/app/service/user-service.service';
 
@@ -14,8 +13,7 @@ export class UserUpdationComponent implements OnInit {
 
   u: User;
   formgroup: FormGroup;
-  constructor(private regService: RegistrationServiceService,
-              private router: Router,
+  constructor(private router: Router,
               private userService: UserServiceService) { }
 
   initForm() {
@@ -37,8 +35,8 @@ export class UserUpdationComponent implements OnInit {
   submitUserForm() {
     console.log('inside submit');
     if (this.formgroup.valid) {
-      this.regService.updateUser(this.formgroup.value, this.u.id).subscribe();
-      this.router.navigateByUrl('/list-all-users');
+      this.userService.updateUser(this.formgroup.value, this.u.id).subscribe();
+      this.router.navigateByUrl('/home');
     }
     else {
       alert('Fill required detail!');

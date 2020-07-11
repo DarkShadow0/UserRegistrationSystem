@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { RegistrationServiceService } from '../service/registration-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user.model';
+import { UserServiceService } from '../service/user-service.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -11,12 +11,16 @@ import { User } from '../model/user.model';
 })
 export class UserRegistrationComponent implements OnInit {
 
+  user: User;
   formgroup: FormGroup;
-  constructor(private regService: RegistrationServiceService,
-              private router: Router, 
+  constructor(private userService: UserServiceService,
+              private router: Router,
               private route: ActivatedRoute) { }
 
-
+  ngOnInit(): void {
+    console.log('inside init');
+    this.initForm();
+  }
   initForm(){
     this.formgroup = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -28,22 +32,21 @@ export class UserRegistrationComponent implements OnInit {
   submitUserForm(){
     console.log('inside submit');
     if (this.formgroup.valid){
-      this.regService.register(this.formgroup.value).subscribe(result => {
+      this.userService.register(this.formgroup.value).subscribe(result => {
         let user_id;
         localStorage.setItem(user_id, result.id);
+        this.user = result;
       });
-      this.router.navigateByUrl('/list-all-users');
+      this.resetForm();
+      alert('Thank You for registering');
     }
     else{
       alert('Fill required detail!');
     }
   }
+
   resetForm(){
     this.formgroup.reset();
-  }
-  ngOnInit(): void {
-    console.log('inside init');
-    this.initForm();
   }
 
 }
