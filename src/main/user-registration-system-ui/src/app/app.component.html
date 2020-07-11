@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <a  routerLink="home"
+            class="btn btn-info navbar-btn"
+            role="button">
+                    Home
+    </a>
+    <a routerLink="register-new-user"
+            class="btn btn-info navbar-btn"
+            role="button">
+                    Register New User
+    </a>
+    <a routerLink="list-all-users"
+            class="btn btn-info"
+            role="button">
+                    List All Users
+    </a>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
